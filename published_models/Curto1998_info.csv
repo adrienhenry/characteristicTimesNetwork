@@ -1,0 +1,19 @@
+name,C,exchangeCarbon
+PRPP,phosphoribosylpyrophosphate,5,True
+IMP,inosine monophosphate,10,True
+SAMP,adenylosuccinate,14,True
+ATP,ATP_ADP_AMP_Ado,10,True
+SAM,s-adenosyl-L-methionine,15,True
+Ade,adenine,5,True
+XMP,xanthosine monophosphate,10,True
+GTP,GTP_GDP_GMP,10,True
+dATP,dATP_dADP_dAMP_dAdo,10,True
+dGTP,dGTP_dGDP_dGMP,10,True
+RNA,,5,True
+DNA,,5,True
+HX,dIno_Ino_HX,10,True
+Xa,xanthine,5,True
+Gua,guanine,9,True
+UA,uric acid,5,True
+R5P,ribose-5-phosphate,5,True
+Pi,phosphate,0,True

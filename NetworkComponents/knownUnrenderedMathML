@@ -1,0 +1,6 @@
+piecewise(#1,geq(#1,#2),#2) -> max(#1,#2)
+pow(#1,#2)-> (#1)**(#2)
+exp(#1)->math.exp(#1)
+log(#1)->math.log(#1)
+sqrt(#1)->math.sqrt(#1)
+MAX(#1,#2) -> max(#1,#2)
