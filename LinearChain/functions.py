@@ -137,7 +137,7 @@ def evaluate_concST_MM(y,args,Flux):
 ######################################################################
 
 ######################################################################
-##                       compute_jacobian_MA                        ##
+##                         compute_jacobian                         ##
 ######################################################################
 ## Function that computes jacobian for the linear metabolite chain
 ## system. (mass action rate laws)
@@ -146,10 +146,11 @@ def evaluate_concST_MM(y,args,Flux):
 ## in the function.
 ## - args: the parameters for the function., the should be given in
 ## following order [a_0,B_0,...,a_N-1,b_N-1]
-def compute_jacobian_MA(size,args):
+def compute_jacobian(size,args):
     N = size
-    a = [args[i] for i in range(0,2*(N+1)-1,2)]
-    b = [args[i] for i in range(1,2*(N+1),2)]
+    args = np.array(args)
+    a = args[np.arange(0,(N+1)*2,2)]
+    b = args[np.arange(1,(N+1)*2,2)]
     r_0 = np.zeros(N+2)
     r_last = np.zeros(N+2)
     jacob = [r_0]
@@ -173,7 +174,7 @@ def compute_jacobian_MA(size,args):
 ## following order [a_0,B_0,KmS_0,KmP_0,...,a_N-1,b_N-1,
 ## KmS_N+1,KmP_N+1]
 def compute_jacobian_MM(y,args):
-    N = len(y)-2  
+    N = len(y)-2
     a = [args[i] for i in range(0,4*(N+1)-1,4)]
     b = [args[i] for i in range(1,4*(N+1),4)]
     KmS = [args[i] for i in range(2,4*(N+1),4)]
@@ -398,18 +399,18 @@ def run_homogenous_model(conc_st,param_vec,typeofmodel="MA",task_list=[""]):
         ## jacobian
         elif task=="jacobian":
             if typeofmodel == "MA-conc":
-                return_vec +=  (compute_jacobian_MA(len(conc_st),param_vec),)
+                return_vec +=  (compute_jacobian(size,param_vec),)
             elif typeofmodel == "MM-conc":
-                return_vec +=  (compute_jacobian_MM(len(conc_st),param_vec),)
+                return_vec +=  (compute_jacobian_MM(conc_st,param_vec),)
             elif typeofmodel == "MM-tracer":
-                return_vec +=  (compute_jacobian_MA(len(conc_st),[A,B]*(size+1)),)
+                return_vec +=  (compute_jacobian(len(conc_st),[A,B]*(size+1)),)
         ## relax_time
         elif task == "relax_time":
             return_vec +=  (1/(A+B - 2*np.sqrt(A*B)*np.cos(np.pi/(size+1))),)
         ## transit_time
         elif task == "transit_time_L1":
             tau = 1/(A+B - 2*np.sqrt(A*B)*np.cos(np.pi/(size+1)))
-            T = compute_lifetime(compute_jacobian_MA(conc_st,[A,B]*(size+1)),tau=tau,norm_type=1)
+            T = compute_lifetime(compute_jacobian(size,[A,B]*(size+1)),tau=tau,norm_type=1)
             
             return_vec += (T,)
         elif task == "transit_time_L2":
@@ -439,23 +440,23 @@ def find_tau_iterative(M,rtol=1E-3,max_iter=0,x0=[]):
         x0 = x0[1:-1]
     x0 = x0/np.linalg.norm(x0)
     dx = np.ones(L)
-    λs = np.ones(L)
+    evs = np.ones(L)
     i = 0
     while True:
         i += 1
         dx = np.dot(M,x0) 
         negative_positions = np.squeeze(np.argwhere( np.abs(x0)>1E-10*np.max(np.abs(x0)) ))
-        λ = dx[negative_positions]/x0[negative_positions]
-        if np.std(λ)<rtol*np.abs(np.mean(λ)):
+        ev = dx[negative_positions]/x0[negative_positions]
+        if np.std(ev)<rtol*np.abs(np.mean(ev)):
             convergence = True
             break
         elif max_iter!=0 and i>max_iter:
             break
         x0 = np.array(dx)
         x0 = x0/np.linalg.norm(x0)        
-    if np.std(λ)>rtol*np.abs(np.mean(λ)):        
+    if np.std(ev)>rtol*np.abs(np.mean(ev)):        
         print("\tThe algorithm did not converge -  max_iter=%d"%max_iter)
-    return(convergence,np.mean(-λ),np.append(0,np.append(x0,0)))
+    return(convergence,np.mean(-ev),np.append(0,np.append(x0,0)))
 ######################################################################
 
 
