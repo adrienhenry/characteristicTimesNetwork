@@ -13,20 +13,31 @@ This project contains all the code needed to produce the data of the paper. Most
 
 Samples of codes, stored in *ipython notebooks*, shows the used of some of these function to produce the figures of the paper.
 
-##  Variation of the times with the network length ##
+## Decay for a tracer metabolites (figure 1) ##
+
+[notebook](./tracer_decay.ipynb)
+![figure decay of tracers](./figures/decay_tracer.png)
+
+
+##  Variation of the times with the network length (figure 2) ##
 
 [notebook](./timeVslength.ipynb)
 
 ![figure relaxation time vs length](./figures/relaxation.png)
 ![figure lifetime vs length](./figures/lifetime.png)
 
-##  Variation of the times with the saturation ##
+## Slowest eigen mode profile (figure 3) ##
+
+[notebook](./profile_slowest_mode.ipynb)
+![figure profile for the slowest eigen mode](./figures/modes.png)
+
+##  Variation of the times with the saturation (figure 4) ##
 
 [notebook](./timeVsSatur.ipynb)
 
 ![figure relaxation time vs saturation](./figures/lifetime_vs_satur.png)
 
-##  Variation of the times with the disorder ##
+##  Variation of the times with the disorder (figure 5) ##
 
 [notebook](./compute_disorder.ipynb)
 

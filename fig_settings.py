@@ -7,8 +7,11 @@
 # fig_size = [fig_width,fig_height]
 # rc("figure",figsize = fig_size)
 text_color = "#000000"#"#424242"
-ms_size = 6
-rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+ms_size = 50
+
+rc('font', **{'family': 'serif', 'serif': ['Computer Modern'],'size':16})
+rc('xtick', labelsize=16) 
+rc('ytick', labelsize=16) 
 rc('text', usetex=True,color=text_color)
 rc('axes',edgecolor=text_color)
 #rc('text',color=text_color)
