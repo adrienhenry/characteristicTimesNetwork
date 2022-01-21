@@ -1,6 +1,6 @@
 beautifulsoup4==4.4.1
 bioservices==1.4.10
-ipython==3.2.1
+ipython==7.16.3
 ipython-genutils==0.1.0
 jupyter-core==4.0.2
 matplotlib==1.4.3
